@@ -68,12 +68,17 @@ public class Vector {
 	public static List<Vector> bezier(Vector start, Vector sp1, Vector sp2, Vector end, int steps){
 	  float t = 1.0f / steps;
     float temp = t*t;
-    Vector fd = sp1.sub(start).multiply(3.0f).multiply(t);
-    Vector fdd_per_2 = start.sub(sp1).multiply(2.0f).add(sp2).multiply(3.0f).multiply(temp);
-    Vector fddd_per_2 = sp1.sub(sp2).multiply(3.0f).add(end).sub(start).multiply(3.0f).multiply(temp).multiply(t);
+    
+    //fd = 3 * (p[1] - p[0]) * t
+    //fdd_per_2 = 3 * (p[0] - 2 * p[1] + p[2]) * temp
+    //fddd_per_2 = 3 * (3 * (p[1] - p[2]) + p[3] - p[0]) * temp * t
+    
+    Vector fd = sp1.sub(start).multiply(t*3.0f);
+    Vector fdd_per_2 = start.sub(sp1.multiply(2.0f).add(sp2)).multiply(temp*3.0f);
+    Vector fddd_per_2 = sp1.sub(sp2).multiply(3.0f).add(end).sub(start).multiply(t*temp*3.0f);
     Vector fddd = fddd_per_2.multiply(2.0f);
     Vector fdd = fdd_per_2.multiply(2.0f);
-    Vector fddd_per_6 = fddd_per_2.multiply(0.33333333f);
+    Vector fddd_per_6 = fddd_per_2.multiply(0.33333333f);   
     
     List<Vector> curve = new ArrayList<Vector>();
     for(;steps>0; steps--){

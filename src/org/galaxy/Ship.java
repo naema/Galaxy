@@ -2,6 +2,8 @@ package org.galaxy;
 
 import java.util.List;
 
+import android.util.Log;
+
 public class Ship {
 	Planet source = null;
 	Planet dest = null;
@@ -12,6 +14,16 @@ public class Ship {
 	float fuzzyness = 5f;
 	List<Vector> path = null;
 	int pathIndex = 0;
+	Vector sp1 = null;
+	Vector sp2 = null; 
+	
+	public Vector getSp1() {
+		return sp1;
+	}
+
+	public Vector getSp2() {
+		return sp2;
+	}
 	
 	public Party getParty() {
 		return party;
@@ -29,11 +41,16 @@ public class Ship {
 		int maxX = Math.max((int)source.getX(), (int)dest.getX());
 		int minY = Math.min((int)source.getY(), (int)dest.getY());
 		int maxY = Math.max((int)source.getY(), (int)dest.getY());
+		//Vector sp1 = new Vector(Math.random()*(maxX-minX)+minX, Math.random()*(maxY-minY)+minY);
+		//Vector sp2 = new Vector(Math.random()*(maxX-minX)+minX, Math.random()*(maxY-minY)+minY);
+		sp1 = new Vector(Math.random()*(maxX-minX)+minX, Math.random()*(maxY-minY)+minY);
+		sp2 = new Vector(Math.random()*(maxX-minX)+minX, Math.random()*(maxY-minY)+minY);
+		Log.d("horst", ""+source.getVector()+sp1+sp2+dest.getVector());
 		this.path = Vector.bezier(
-		  source.getPos(),
-		  new Vector(Math.random()*(maxX-minX)+minX, Math.random()*(maxY-minY)-minY),
-		  new Vector(Math.random()*(maxX-minX)+minX, Math.random()*(maxY-minY)-minY),
-		  dest.getPos(),
+		  source.getVector(),
+		  sp1,
+		  sp2,
+		  dest.getVector(),
 		  (int)(Math.random()*50 + 100)
 		);
 		

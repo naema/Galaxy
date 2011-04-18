@@ -34,10 +34,6 @@ public class Planet {
 		return y;
 	}
 
-  public Vector getPos(){
-    return new Vector(x, y);
-  }
-
 	public float getSize() {
 		return size;
 	}

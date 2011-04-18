@@ -163,9 +163,12 @@ public class GalaxyScreen extends View implements View.OnTouchListener {
 		  }
 			 
 		}
+		Paint spp = new Paint();
+		spp.setColor(0xffa00000);
 		for (Ship ship : ships) {
-			canvas.drawCircle(ship.getX(), ship.getY(), 2, ship.getParty()
-					.getPaint());
+			canvas.drawCircle(ship.getX(), ship.getY(), 2, ship.getParty().getPaint());
+			canvas.drawCircle(ship.getSp1().getX(), ship.getSp1().getY(), 2, spp);
+			canvas.drawCircle(ship.getSp2().getX(), ship.getSp2().getY(), 2, spp);
 		}
 
 		super.draw(canvas);
